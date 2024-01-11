@@ -1,9 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 const data = ['https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg', 'https://images.unsplash.com/photo-1509043759401-136742328bb3?ixlib=rb-4.0.3', 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg', 'https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630'];
 
 function ImageSlider() {
     const [imageIndex, setImageIndex] = useState(0);
+
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            getNextImage();
+        }, 5000)
+        return () => clearTimeout(timer);
+    },[imageIndex]);
 
     const imgDisplay = (i) => {
         return imageIndex === i ? 'block' : 'hidden';
@@ -53,3 +60,9 @@ export default ImageSlider;
 
 // Can you build a feature where slider automatically slides after 5 sec??
 
+// useEffect is called after render
+// we should also clear the setTimeOut so for that we can return a cleanup function from useEffect
+// we should clear existing timeout before creating new time out otherwise you will see weird timeout behavior
+// cleanUp is mandatory, not optional
+// Lifecycle of react component - component creates, mounts, updates, umounts.
+// render then useEffect

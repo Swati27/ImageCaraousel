@@ -5,9 +5,9 @@ const data = ['https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.j
 function ImageSlider() {
     const [imageIndex, setImageIndex] = useState(0);
 
-    // const imgDisplay = (i) => {
-    //     return imageIndex === i ? 'block' : 'hidden';
-    // }
+    const imgDisplay = (i) => {
+        return imageIndex === i ? 'block' : 'hidden';
+    }
 
     const getPreviousImage = () => {
         if(imageIndex != 0)
@@ -26,7 +26,9 @@ function ImageSlider() {
   return (
     <div>
         <button style={{margin: '10px', padding: '4px'}} onClick={()=> getPreviousImage()}>Previous</button>
-        <img style = {{width: '500px', height: '500px'}} src = {data[imageIndex]} alt='wallpaper'></img>
+        {data.map((url,i)=>{
+    return  <img key = {url} style = {{width: '500px', height: '500px', display: imgDisplay(i)}} src = {url} alt='wallpaper'></img>
+    })}
         <button style={{margin: '10px', padding: '4px'}} onClick={()=> getNextImage()}>Next</button>
     </div>
   )
@@ -51,6 +53,3 @@ export default ImageSlider;
 
 // Can you build a feature where slider automatically slides after 5 sec??
 
-// {data.map((url,i)=>{
-//     return  <img key = {url} style = {{width: '500px', height: '500px', display: imgDisplay(i)}} src = {url} alt='wallpaper'></img>
-// })}
